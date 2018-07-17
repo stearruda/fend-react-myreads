@@ -2,7 +2,7 @@ import React from 'react'
 import { Route } from 'react-router-dom'
 import ListOfBooks from './components/ListOfBooks'
 import SearchBooks from './components/SearchBooks'
-// import * as BooksAPI from './utils/BooksAPI'
+import * as BooksAPI from './utils/BooksAPI'
 import './App.css'
 
 class BooksApp extends React.Component {
@@ -13,6 +13,33 @@ class BooksApp extends React.Component {
      * users can use the browser's back and forward buttons to navigate between
      * pages, as well as provide a good URL they can bookmark and share.
      */
+
+  currentlyReadingBooks: [],
+
+  wantToReadBooks: [],
+
+  readBooks: []
+
+  }
+
+  collectBooks(books){
+    for (let i = 0; i < books.length; i++) {
+      const book = books[i]
+      const shelf = book.shelf
+      if(shelf === 'currentlyReading') {
+        this.state.currentlyReadingBooks.push(book)
+      } else if(shelf === 'wantToRead') {
+        this.state.wantToReadBooks.push(book)
+      } else if(shelf === 'read') {
+        this.state.readBooks.push(book)
+      }
+    }
+  }
+
+  componentDidMount() {
+    BooksAPI.getAll().then((books) => {
+      this.collectBooks(books)
+    })
   }
 
   render() {
