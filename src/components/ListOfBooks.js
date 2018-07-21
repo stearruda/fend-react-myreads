@@ -1,7 +1,7 @@
 import React from 'react'
 import * as BooksAPI from '../utils/BooksAPI'
 import { Link } from 'react-router-dom'
-import Book from './Book.js'
+import Bookshelf from './Bookshelf.js'
 
 class ListOfBooks extends React.Component {
 	state = {
@@ -46,11 +46,6 @@ class ListOfBooks extends React.Component {
 			return (<div/>)
 		}
 
-		const createBook = (book) => (<Book key={book.title} book={book} />)
-		const currentlyReadingShelf = this.state.currentlyReadingBooks.map(createBook)
-		const wantToReadShelf = this.state.wantToReadBooks.map(createBook)
-		const readShelf = this.state.readBooks.map(createBook)
-
 		return (
 			<div className='list-books'>
 				<div className='list-books-title'>
@@ -58,30 +53,9 @@ class ListOfBooks extends React.Component {
 				</div>
 				<div className='list-books-content'>
 					<div>
-						<div className='bookshelf'>
-							<h2 className='bookshelf-title'>Currently Reading</h2>
-							<div className='bookshelf-books'>
-								<ol className='books-grid'>
-									{currentlyReadingShelf}
-								</ol>
-							</div>
-						</div>
-						<div className='bookshelf'>
-							<h2 className='bookshelf-title'>Want to Read</h2>
-							<div className='bookshelf-books'>
-								<ol className='books-grid'>
-									{wantToReadShelf}
-								</ol>
-							</div>
-						</div>
-						<div className='bookshelf'>
-							<h2 className='bookshelf-title'>Read</h2>
-							<div className='bookshelf-books'>
-								<ol className='books-grid'>
-									{readShelf}
-								</ol>
-							</div>
-						</div>
+						<Bookshelf books={this.state.currentlyReadingBooks} shelfName='Currently Reading' />
+						<Bookshelf books={this.state.wantToReadBooks} shelfName='Want to Read' />
+						<Bookshelf books={this.state.readBooks} shelfName='Read' />
 					</div>
 				</div>
 				<div className='open-search'>
