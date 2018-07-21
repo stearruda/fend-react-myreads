@@ -46,19 +46,10 @@ class ListOfBooks extends React.Component {
 			return (<div/>)
 		}
 
-		const currentlyReadingShelfDivs = this.state.currentlyReadingBooks.map(
-			(book) => (
-				<Book key={book.title} book={book} />
-			)
-		)
-
-		const wantToReadShelfDivs = this.state.wantToReadBooks.map((book) => (
-			<Book key={book.title} book={book} />
-		))
-
-		const readShelfDivs = this.state.readBooks.map((book) => (
-			<Book key={book.title} book={book} />
-		))
+		const createBook = (book) => (<Book key={book.title} book={book} />)
+		const currentlyReadingShelf = this.state.currentlyReadingBooks.map(createBook)
+		const wantToReadShelf = this.state.wantToReadBooks.map(createBook)
+		const readShelf = this.state.readBooks.map(createBook)
 
 		return (
 			<div className='list-books'>
@@ -71,7 +62,7 @@ class ListOfBooks extends React.Component {
 							<h2 className='bookshelf-title'>Currently Reading</h2>
 							<div className='bookshelf-books'>
 								<ol className='books-grid'>
-									{currentlyReadingShelfDivs}
+									{currentlyReadingShelf}
 								</ol>
 							</div>
 						</div>
@@ -79,7 +70,7 @@ class ListOfBooks extends React.Component {
 							<h2 className='bookshelf-title'>Want to Read</h2>
 							<div className='bookshelf-books'>
 								<ol className='books-grid'>
-									{wantToReadShelfDivs}
+									{wantToReadShelf}
 								</ol>
 							</div>
 						</div>
@@ -87,7 +78,7 @@ class ListOfBooks extends React.Component {
 							<h2 className='bookshelf-title'>Read</h2>
 							<div className='bookshelf-books'>
 								<ol className='books-grid'>
-									{readShelfDivs}
+									{readShelf}
 								</ol>
 							</div>
 						</div>
