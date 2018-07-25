@@ -3,7 +3,6 @@ import React from 'react'
 
 class Book extends React.Component {
 	state = {
-
 	}
 
 	render() {
@@ -20,7 +19,12 @@ class Book extends React.Component {
 							}}
 						></div>
 						<div className='book-shelf-changer'>
-							<select>
+							<select
+								onChange={(event) => this.props.changeShelf(
+									this.props.book, event.target.value
+								)}
+								value={this.props.currentShelf}
+							>
 								<option value='move' disabled>Move to...</option>
 								<option value='currentlyReading'>Currently Reading</option>
 								<option value='wantToRead'>Want to Read</option>

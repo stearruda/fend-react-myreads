@@ -5,7 +5,6 @@ import Bookshelf from './Bookshelf.js'
 
 class ListOfBooks extends React.Component {
 	state = {
-
 		currentlyReadingBooks: [],
 
 		wantToReadBooks: [],
@@ -41,6 +40,14 @@ class ListOfBooks extends React.Component {
 		})
 	}
 
+	changeShelf= (book, shelf) => {
+		BooksAPI.update(book, shelf)
+
+		BooksAPI.getAll().then((books) => {
+			this.collectBooks(books)
+		})
+	}
+
 	render() {
 		if (this.state.currentlyReadingBooks.length === 0) {
 			return (<div/>)
@@ -53,9 +60,24 @@ class ListOfBooks extends React.Component {
 				</div>
 				<div className='list-books-content'>
 					<div>
-						<Bookshelf books={this.state.currentlyReadingBooks} shelfName='Currently Reading' />
-						<Bookshelf books={this.state.wantToReadBooks} shelfName='Want to Read' />
-						<Bookshelf books={this.state.readBooks} shelfName='Read' />
+						<Bookshelf
+							books={this.state.currentlyReadingBooks}
+							shelfTitle='Currently Reading'
+							shelfCode='currentlyReading'
+							changeShelf={this.changeShelf}
+						/>
+						<Bookshelf
+							books={this.state.wantToReadBooks}
+							shelfTitle='Want to Read'
+							shelfCode='wantToRead'
+							changeShelf={this.changeShelf}
+						/>
+						<Bookshelf
+							books={this.state.readBooks}
+							shelfTitle='Read'
+							shelfCode='read'
+							changeShelf={this.changeShelf}
+						/>
 					</div>
 				</div>
 				<div className='open-search'>
