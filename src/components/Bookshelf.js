@@ -10,7 +10,7 @@ class Bookshelf extends React.Component {
 	render() {
 		const createBookContainer = (book) => (
 			<Book
-				key={book.title}
+				key={book.id}
 				book={book}
 				changeShelf={this.props.changeShelf}
 				currentShelf={this.props.shelfCode}

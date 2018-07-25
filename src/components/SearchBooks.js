@@ -19,9 +19,13 @@ class SearchBooks extends React.Component {
 	}
 
 	collectSearchedBooks = (query) => {
-		if(query) {
-			BooksAPI.search(query).then((searchedBooks) => {
-				this.setState({ searchedBooks: searchedBooks })
+		if (query) {
+			BooksAPI.search(query).then((searchResult) => {
+				if (searchResult.error) {
+					this.setState({ searchedBooks: [] })
+				} else {
+					this.setState({ searchedBooks: searchResult })
+				}
 			})
 		} else {
 			this.setState({ searchedBooks: [] })
@@ -31,14 +35,14 @@ class SearchBooks extends React.Component {
 	render() {
 		const createSearchedBooksContainer = (searchedBooks) => (
 			<Book
-				key={searchedBooks.title}
+				key={searchedBooks.id}
 				book={searchedBooks}
 				changeShelf={this.props.changeShelf}
 				currentShelf={this.props.shelfCode}
 			/>
 		)
 
-		const searchedBookContainers = this.state.searchedBooks.map(createSearchedBooksContainer)
+		let searchedBookContainers = this.state.searchedBooks.map(createSearchedBooksContainer)
 
 		return (
 			<div className='search-books'>
