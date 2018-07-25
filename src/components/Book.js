@@ -7,6 +7,7 @@ class Book extends React.Component {
 
 	render() {
 		let bookThumbnail = this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : ''
+		let bookAuthor = this.props.book.authors ? this.props.book.authors : this.props.book.authors = ''
 
 		return (
 			<li>
@@ -36,7 +37,7 @@ class Book extends React.Component {
 						</div>
 					</div>
 					<div className='book-title'>{this.props.book.title}</div>
-					<div className='book-authors'>{this.props.book.authors}</div>
+					<div className='book-authors'>{bookAuthor}</div>
 				</div>
 			</li>
 		)
