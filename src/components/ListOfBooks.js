@@ -40,7 +40,7 @@ class ListOfBooks extends React.Component {
 		})
 	}
 
-	changeShelf= (book, shelf) => {
+	changeShelf = (book, shelf) => {
 		BooksAPI.update(book, shelf)
 
 		BooksAPI.getAll().then((books) => {
