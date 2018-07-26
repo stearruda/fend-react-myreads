@@ -33,14 +33,26 @@ class SearchBooks extends React.Component {
 	}
 
 	render() {
-		const createSearchedBooksContainer = (searchedBooks) => (
-			<Book
-				key={searchedBooks.id}
-				book={searchedBooks}
-				changeShelf={this.props.changeShelf}
-				currentShelf={'none'}
-			/>
-		)
+		const createSearchedBooksContainer = (searchedBook) => {
+			let bookShelf = 'none'
+
+			const compareBooks = (book) => {
+				if (book.id === searchedBook.id) {
+					bookShelf = book.shelf
+				}
+			}
+
+			this.props.myBooks.forEach(compareBooks)
+
+			return (
+				<Book
+					key={searchedBook.id}
+					book={searchedBook}
+					changeShelf={this.props.changeShelf}
+					currentShelf={bookShelf}
+				/>
+			)
+		}
 
 		let searchedBookContainers = this.state.searchedBooks.map(createSearchedBooksContainer)
 

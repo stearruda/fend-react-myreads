@@ -55,6 +55,8 @@ class BooksApp extends React.Component {
 			return (<div/>)
 		}
 
+		const myBooks = this.state.currentlyReadingBooks.concat(this.state.wantToReadBooks, this.state.readBooks)
+
 		return (
 			<div className='app'>
 				<Route exact path='/' render={() => (
@@ -67,6 +69,7 @@ class BooksApp extends React.Component {
 				)}/>
 				<Route path='/search' render={() => (
 					<SearchBooks
+						myBooks={myBooks}
 						changeShelf={this.changeShelf.bind(this)}
 					/>
 				)}/>
