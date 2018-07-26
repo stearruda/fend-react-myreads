@@ -23,11 +23,8 @@ Another option was to start the project from scratch using [Create React App](ht
 
 ## Run the Application
 
-In order to run the application you have some options:
+In order to run the application follow these steps:
 
-1. Open it [here](https://stearruda.github.io/react-myreads/)
-
-2. Run it localy
 * Download as .zip file or clone this project:
 
     ```
