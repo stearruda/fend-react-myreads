@@ -42,11 +42,11 @@ class BooksApp extends React.Component {
 		})
 	}
 
-	changeShelf = (book, shelf) => {
-		BooksAPI.update(book, shelf)
-
-		BooksAPI.getAll().then((books) => {
-			this.collectBooks(books)
+	changeShelf(book, shelf) {
+		BooksAPI.update(book, shelf).then(() => {
+			BooksAPI.getAll().then((books) => {
+				this.collectBooks(books)
+			})
 		})
 	}
 
@@ -62,12 +62,12 @@ class BooksApp extends React.Component {
 						currentlyReadingBooks={this.state.currentlyReadingBooks}
 						wantToReadBooks={this.state.wantToReadBooks}
 						readBooks={this.state.readBooks}
-						changeShelf={this.changeShelf}
+						changeShelf={this.changeShelf.bind(this)}
 					/>
 				)}/>
 				<Route path='/search' render={() => (
 					<SearchBooks
-						changeShelf={this.changeShelf}
+						changeShelf={this.changeShelf.bind(this)}
 					/>
 				)}/>
 			</div>
