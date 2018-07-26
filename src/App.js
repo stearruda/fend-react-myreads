@@ -1,27 +1,74 @@
 import React from 'react'
 import { Route } from 'react-router-dom'
+import * as BooksAPI from './utils/BooksAPI'
 import ListOfBooks from './components/ListOfBooks'
 import SearchBooks from './components/SearchBooks'
 import './App.css'
 
 class BooksApp extends React.Component {
 	state = {
-		/**
-		 * TODO: Instead of using this state variable to keep track of which page
-		 * we're on, use the URL in the browser's address bar. This will ensure that
-		 * users can use the browser's back and forward buttons to navigate between
-		 * pages, as well as provide a good URL they can bookmark and share.
-		 */
+		currentlyReadingBooks: [],
+
+		wantToReadBooks: [],
+
+		readBooks: []
+	}
+
+	collectBooks(books) {
+		const currentlyReadingBooksTmp = []
+		const wantToReadBooksTmp = []
+		const readBooksTmp = []
+		for (let i = 0; i < books.length; i++) {
+			const book = books[i]
+			const shelf = book.shelf
+			if (shelf === 'currentlyReading') {
+				currentlyReadingBooksTmp.push(book)
+			} else if (shelf === 'wantToRead') {
+				wantToReadBooksTmp.push(book)
+			} else if (shelf === 'read') {
+				readBooksTmp.push(book)
+			}
+		}
+		this.setState({
+			currentlyReadingBooks: currentlyReadingBooksTmp,
+			wantToReadBooks: wantToReadBooksTmp,
+			readBooks: readBooksTmp
+		})
+	}
+
+	componentDidMount() {
+		BooksAPI.getAll().then((books) => {
+			this.collectBooks(books)
+		})
+	}
+
+	changeShelf = (book, shelf) => {
+		BooksAPI.update(book, shelf)
+
+		BooksAPI.getAll().then((books) => {
+			this.collectBooks(books)
+		})
 	}
 
 	render() {
+		if (this.state.currentlyReadingBooks.length === 0) {
+			return (<div/>)
+		}
+
 		return (
 			<div className='app'>
 				<Route exact path='/' render={() => (
-					<ListOfBooks />
+					<ListOfBooks
+						currentlyReadingBooks={this.state.currentlyReadingBooks}
+						wantToReadBooks={this.state.wantToReadBooks}
+						readBooks={this.state.readBooks}
+						changeShelf={this.changeShelf}
+					/>
 				)}/>
 				<Route path='/search' render={() => (
-					<SearchBooks />
+					<SearchBooks
+						changeShelf={this.changeShelf}
+					/>
 				)}/>
 			</div>
 		)
