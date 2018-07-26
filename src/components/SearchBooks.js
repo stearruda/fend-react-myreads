@@ -38,7 +38,7 @@ class SearchBooks extends React.Component {
 				key={searchedBooks.id}
 				book={searchedBooks}
 				changeShelf={this.props.changeShelf}
-				currentShelf={this.props.shelfCode}
+				currentShelf={'none'}
 			/>
 		)
 
