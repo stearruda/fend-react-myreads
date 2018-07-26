@@ -6,8 +6,20 @@ class Book extends React.Component {
 	}
 
 	render() {
-		let bookThumbnail = this.props.book.imageLinks ? this.props.book.imageLinks.thumbnail : ''
+		let bookThumbnail
+		if (this.props.book.imageLinks) {
+			bookThumbnail = this.props.book.imageLinks.thumbnail
+		} else {
+			bookThumbnail = ''
+		}
+
 		let bookAuthor = this.props.book.authors ? this.props.book.authors : this.props.book.authors = ''
+
+		let whenOnChange = (event) =>	{
+			this.props.changeShelf(this.props.book, event.target.value)
+		}
+
+		whenOnChange = whenOnChange.bind(this)
 
 		return (
 			<li>
@@ -23,9 +35,7 @@ class Book extends React.Component {
 						></div>
 						<div className='book-shelf-changer'>
 							<select
-								onChange={(event) => this.props.changeShelf(
-									this.props.book, event.target.value
-								)}
+								onChange={whenOnChange}
 								value={this.props.currentShelf}
 							>
 								<option value='move' disabled>Move to...</option>
