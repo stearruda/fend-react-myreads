@@ -20,13 +20,13 @@ class ListOfBooks extends React.Component {
 							books={this.props.currentlyReadingBooks}
 							shelfTitle='Currently Reading'
 							shelfCode='currentlyReading'
-							changeShelf={this.changeShelf}
+							changeShelf={this.props.changeShelf}
 						/>
 						<Bookshelf
 							books={this.props.wantToReadBooks}
 							shelfTitle='Want to Read'
 							shelfCode='wantToRead'
-							changeShelf={this.changeShelf}
+							changeShelf={this.props.changeShelf}
 						/>
 						<Bookshelf
 							books={this.props.readBooks}
